@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
@@ -29,14 +30,21 @@ public class MainActivity extends AppCompatActivity {
         myImageView.setImageBitmap(myBitmap);
         TextView txtView = (TextView) findViewById(R.id.txtContent);
 
-        BarcodeDetector detector = new BarcodeDetector.Builder(getApplicationContext()).setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE).build();
+        BarcodeDetector detector = new BarcodeDetector.Builder(
+                getApplicationContext()).build();
+
+
+
+        detector.setProcessor(
+                new MultiProcessor.Builder<Barcode>()
+                .build(new BarcodeTrackerFactory()));
 
         /*
         You must provide a TrackerFactory to create a new Tracker instance for each barcode.
         For this example, BarcodeTrackerFactory creates a BarcodeGraphic that overlays the
           bounding box and value for each barcode result:
          */
-        BarcodeTrackerFactory barcodeTrackerFactory = new BarcodeTra
+        BarcodeTrackerFactory barcodeTrackerFactory = new BarcodeTrackerFactory(m)
         if (!detector.isOperational()){
             txtView.setText("Could not set up the detector!");
             return;
