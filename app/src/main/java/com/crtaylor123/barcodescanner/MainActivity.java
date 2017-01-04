@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -24,8 +25,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        CameraSource mCameraSource;
+        
         Button btn = (Button) findViewById(R.id.button);
         ImageView myImageView = (ImageView) findViewById(R.id.imgview);
+
         Bitmap myBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.drawable.puppy);
         myImageView.setImageBitmap(myBitmap);
         TextView txtView = (TextView) findViewById(R.id.txtContent);
@@ -33,11 +37,20 @@ public class MainActivity extends AppCompatActivity {
         BarcodeDetector detector = new BarcodeDetector.Builder(
                 getApplicationContext()).build();
 
+        BarcodeTrackerFactory barcodeFactory = new BarcodeTrackerFactory(mGraphicOverlay);
+
+        mCameraSource = new CameraSource.Builder(getApplicationContext(), detector)
+                .setFacing(CameraSource.CAMERA_FACING_BACK)
+                .setRequestedFps(15.0f)
+                .build();
 
 
         detector.setProcessor(
-                new MultiProcessor.Builder<Barcode>()
-                .build(new BarcodeTrackerFactory()));
+                new MultiProcessor.Builder<>(barcodeFactory)
+                .build();
+
+
+        mPreview.start(mCameraSource, mGr)
 
         /*
         You must provide a TrackerFactory to create a new Tracker instance for each barcode.
