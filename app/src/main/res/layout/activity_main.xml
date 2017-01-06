@@ -15,8 +15,8 @@
         android:orientation="vertical" >
 
         <SurfaceView
-            android:layout_width="640px"
-            android:layout_height="480px"
+            android:layout_width="1280px"
+            android:layout_height="1280px"
             android:id="@+id/camera_view"/>
 
         <TextView android:text=""

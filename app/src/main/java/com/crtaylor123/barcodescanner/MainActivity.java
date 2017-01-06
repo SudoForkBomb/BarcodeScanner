@@ -13,7 +13,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
@@ -34,14 +33,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btn = (Button) findViewById(R.id.button);
-        ImageView myImageView = (ImageView) findViewById(R.id.imgview);
+        //ImageView myImageView = (ImageView) findViewById(R.id.imgview);
         final TextView txtView = (TextView) findViewById(R.id.txtContent);
         final SurfaceView cameraView = (SurfaceView) findViewById(R.id.camera_view);
 
         Bitmap myBitmap = BitmapFactory.decodeResource(
                 getApplicationContext().getResources(),
                 R.drawable.puppy);
-        myImageView.setImageBitmap(myBitmap);
+        //myImageView.setImageBitmap(myBitmap);
 
 
         /*
@@ -56,7 +55,10 @@ public class MainActivity extends AppCompatActivity {
          */
         final CameraSource cameraSource = new CameraSource.Builder(
                 getApplicationContext(), barcodeDetector)
-                .setRequestedPreviewSize(640, 480)
+                .setRequestedPreviewSize(1280, 1280)
+                .setFacing(CameraSource.CAMERA_FACING_BACK)
+                .setAutoFocusEnabled(true)
+                .setRequestedFps(30.0f)
                 .build();
 
         /*
@@ -105,10 +107,6 @@ public class MainActivity extends AppCompatActivity {
         The detect method for barcodeDetector generates a SparseArray that contains all the barcodes detected in the photo.
          */
         final SparseArray<Barcode> barcodes = barcodeDetector.detect(frame);
-
-
-
-
 
         /*
         Tells barcodeDetector what it should do when it detects a QR code.
