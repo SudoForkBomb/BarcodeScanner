@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.puppy);
         //myImageView.setImageBitmap(myBitmap);
 
-
         /*
         Detects the barcodes. Detects all types of barcodes by default. Use setBarcodeFormats to specify.
          */
@@ -112,47 +111,35 @@ public class MainActivity extends AppCompatActivity {
         Tells barcodeDetector what it should do when it detects a QR code.
          */
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
-                                         @Override
-                                         public void release() {
+             @Override
+             public void release() {
 
-                                         }
+             }
 
-                                         @Override
-                                         public void receiveDetections(Detector.Detections<Barcode> detections) {
-                                             final SparseArray<Barcode> barcodes = detections.getDetectedItems();
+             @Override
+             public void receiveDetections(Detector.Detections<Barcode> detections) {
+                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
 
-                                             /*
-                                            Check if at least one barcode was detected
-                                             */
-                                             if(barcodes.size() != 0){
+            /*
+            Check if at least one barcode was detected
+            */
+                 if (barcodes.size() != 0) {
 
-                                                /*
-                                                Display the barcode's message in txtView
-                                                 */
-                                                 txtView.post(new Runnable() {
-                                                     @Override
-                                                     public void run() {
-                                                         txtView.setText(
-                                                                 barcodes.valueAt(0).displayValue
-                                                         );
-                                                     }
-                                                 });
-                                             }
+            /*
+            Display the barcode's message in txtView
+            */
+                     txtView.post(new Runnable() {
+                         @Override
+                         public void run() {
+                             txtView.setText(
+                                     barcodes.valueAt(0).displayValue);
+                             new BarcodeRetrofit().getBarcodeInfo(barcodes.valueAt(0));
+                         }
+                     });
+                 }
 
-                                         }
-                                     }
-        );
-
-
-
-
-        /*
-        Frame frame = new Frame.Builder().setBitmap(myBitmap).build();
-        SparseArray<Barcode> barcodes = barcodeDetector.detect(frame);
-        Barcode thisCode = barcodes.valueAt(0);
-        txtView.setText(thisCode.rawValue);
-        */
-
+             }
+        });
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,5 +147,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
+
 }
+
+}
+
+
