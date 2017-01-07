@@ -12,7 +12,7 @@ import retrofit2.Retrofit;
  */
 
 public class BarcodeRetrofit {
-    static final String apiKey = "7cc78acb320c8441dcd662d0e014f112";
+    static final String apiKey = "";
 
     public void getBarcodeInfo(Barcode barcodeInfo) {
 
