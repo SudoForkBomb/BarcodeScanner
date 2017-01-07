@@ -2,6 +2,7 @@ package com.crtaylor123.barcodescanner;
 
 import com.google.android.gms.vision.barcode.Barcode;
 
+import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -10,7 +11,7 @@ import retrofit2.http.Path;
  */
 public interface BarcodeAPI {
     @GET("/{key}/{id}")
-    void getBarcodeAPI(@Path("key") Barcode key, @Path("id") String id);
+    Call<UPC> getBarcodeAPI(@Path("key") Barcode key, @Path("id") String id);
 
 
 }

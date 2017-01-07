@@ -132,8 +132,8 @@ public class MainActivity extends AppCompatActivity {
                          @Override
                          public void run() {
                              txtView.setText(
-                                     barcodes.valueAt(0).displayValue);
-                             new BarcodeRetrofit().getBarcodeInfo(barcodes.valueAt(0));
+                             new BarcodeRetrofit().getBarcodeInfo(barcodes.valueAt(0)));
+                             //barcodes.valueAt(0).displayValue);
                          }
                      });
                  }
