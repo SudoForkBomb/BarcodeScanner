@@ -33,15 +33,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btn = (Button) findViewById(R.id.button);
-        //ImageView myImageView = (ImageView) findViewById(R.id.imgview);
         final TextView txtView = (TextView) findViewById(R.id.txtContent);
         final SurfaceView cameraView = (SurfaceView) findViewById(R.id.camera_view);
 
         Bitmap myBitmap = BitmapFactory.decodeResource(
                 getApplicationContext().getResources(),
                 R.drawable.puppy);
-        //myImageView.setImageBitmap(myBitmap);
-
         /*
         Detects the barcodes. Detects all types of barcodes by default. Use setBarcodeFormats to specify.
          */
@@ -113,26 +110,20 @@ public class MainActivity extends AppCompatActivity {
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
              @Override
              public void release() {
-
              }
-
              @Override
              public void receiveDetections(Detector.Detections<Barcode> detections) {
                  final SparseArray<Barcode> barcodes = detections.getDetectedItems();
 
-            /*
-            Check if at least one barcode was detected
-            */
+                 //Check if at least one barcode was detected
                  if (barcodes.size() != 0) {
 
-            /*
-            Display the barcode's message in txtView
-            */
+                     //Display the barcode's message in txtView
                      txtView.post(new Runnable() {
                          @Override
                          public void run() {
                              txtView.setText(
-                             new BarcodeRetrofit().getBarcodeInfo(barcodes.valueAt(0)));
+                             new BarcodeRetrofit().getBarcodeInfo(barcodes.valueAt(0).displayValue));
                              //barcodes.valueAt(0).displayValue);
                          }
                      });

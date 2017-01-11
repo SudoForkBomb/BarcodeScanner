@@ -10,8 +10,9 @@ import retrofit2.http.Path;
  * Created by chris on 1/5/2017.
  */
 public interface BarcodeAPI {
-    @GET("/{key}/{id}")
-    Call<UPC> getBarcodeAPI(@Path("key") Barcode key, @Path("id") String id);
+
+    @GET("{key}/{code}")
+    Call<UPC> getBarcodeAPI(@Path("key") String key, @Path("code") String code);
 
 
 }

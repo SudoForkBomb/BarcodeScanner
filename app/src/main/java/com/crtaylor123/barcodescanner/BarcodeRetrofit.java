@@ -14,17 +14,18 @@ import retrofit2.Retrofit;
  */
 
 public class BarcodeRetrofit {
-    static final String apiKey = "";
+    static final String apiKey = "7cc78acb320c8441dcd662d0e014f112";
 
-    public String getBarcodeInfo(Barcode barcodeInfo) {
+    public String getBarcodeInfo(String barcodeInfo) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://api.upcdatabase.org/json/")
                 .build();
 
         BarcodeAPI barcodeAPI = retrofit.create(BarcodeAPI.class);
-        barcodeAPI.getBarcodeAPI(barcodeInfo, apiKey);
-        Call<UPC> upc = barcodeAPI.getBarcodeAPI(barcodeInfo, apiKey);
+
+//        barcodeAPI.getBarcodeAPI(barcodeInfo, apiKey);
+        Call<UPC> upc = barcodeAPI.getBarcodeAPI(apiKey, barcodeInfo);
         return upc.toString();
     }
 }
