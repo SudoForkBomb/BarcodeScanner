@@ -9,45 +9,14 @@ import java.util.Map;
 
 public class UPC {
 
-    private String valid;
-    private String number;
-    private String itemname;
-    private String alias;
-    private String description;
-    private String avgPrice;
-    private Integer rateUp;
-    private Integer rateDown;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public UPC() {
-    }
-
-    /**
-     *
-     * @param valid
-     * @param rateUp
-     * @param avgPrice
-     * @param alias
-     * @param itemname
-     * @param description
-     * @param number
-     * @param rateDown
-     */
-    public UPC(String valid, String number, String itemname, String alias, String description, String avgPrice, Integer rateUp, Integer rateDown) {
-        super();
-        this.valid = valid;
-        this.number = number;
-        this.itemname = itemname;
-        this.alias = alias;
-        this.description = description;
-        this.avgPrice = avgPrice;
-        this.rateUp = rateUp;
-        this.rateDown = rateDown;
-    }
+        private String valid;
+        private String number;
+        private String itemname;
+        private String alias;
+        private String description;
+        private String avg_price;
+        private Integer rate_up;
+        private Integer rate_down;
 
     public String getValid() {
         return valid;
@@ -55,11 +24,6 @@ public class UPC {
 
     public void setValid(String valid) {
         this.valid = valid;
-    }
-
-    public UPC withValid(String valid) {
-        this.valid = valid;
-        return this;
     }
 
     public String getNumber() {
@@ -70,22 +34,12 @@ public class UPC {
         this.number = number;
     }
 
-    public UPC withNumber(String number) {
-        this.number = number;
-        return this;
-    }
-
     public String getItemname() {
         return itemname;
     }
 
     public void setItemname(String itemname) {
         this.itemname = itemname;
-    }
-
-    public UPC withItemname(String itemname) {
-        this.itemname = itemname;
-        return this;
     }
 
     public String getAlias() {
@@ -96,11 +50,6 @@ public class UPC {
         this.alias = alias;
     }
 
-    public UPC withAlias(String alias) {
-        this.alias = alias;
-        return this;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -109,61 +58,28 @@ public class UPC {
         this.description = description;
     }
 
-    public UPC withDescription(String description) {
-        this.description = description;
-        return this;
+    public String getAvg_price() {
+        return avg_price;
     }
 
-    public String getAvgPrice() {
-        return avgPrice;
+    public void setAvg_price(String avg_price) {
+        this.avg_price = avg_price;
     }
 
-    public void setAvgPrice(String avgPrice) {
-        this.avgPrice = avgPrice;
+    public Integer getRate_up() {
+        return rate_up;
     }
 
-    public UPC withAvgPrice(String avgPrice) {
-        this.avgPrice = avgPrice;
-        return this;
+    public void setRate_up(Integer rate_up) {
+        this.rate_up = rate_up;
     }
 
-    public Integer getRateUp() {
-        return rateUp;
+    public Integer getRate_down() {
+        return rate_down;
     }
 
-    public void setRateUp(Integer rateUp) {
-        this.rateUp = rateUp;
-    }
-
-    public UPC withRateUp(Integer rateUp) {
-        this.rateUp = rateUp;
-        return this;
-    }
-
-    public Integer getRateDown() {
-        return rateDown;
-    }
-
-    public void setRateDown(Integer rateDown) {
-        this.rateDown = rateDown;
-    }
-
-    public UPC withRateDown(Integer rateDown) {
-        this.rateDown = rateDown;
-        return this;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
-    public UPC withAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-        return this;
+    public void setRate_down(Integer rate_down) {
+        this.rate_down = rate_down;
     }
 
     @Override
@@ -174,10 +90,9 @@ public class UPC {
                 ", itemname='" + itemname + '\'' +
                 ", alias='" + alias + '\'' +
                 ", description='" + description + '\'' +
-                ", avgPrice='" + avgPrice + '\'' +
-                ", rateUp=" + rateUp +
-                ", rateDown=" + rateDown +
-                ", additionalProperties=" + additionalProperties +
+                ", avg_price='" + avg_price + '\'' +
+                ", rate_up=" + rate_up +
+                ", rate_down=" + rate_down +
                 '}';
     }
 }
