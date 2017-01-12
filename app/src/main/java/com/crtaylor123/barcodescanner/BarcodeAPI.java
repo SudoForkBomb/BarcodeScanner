@@ -14,5 +14,8 @@ public interface BarcodeAPI {
     @GET("{key}/{code}")
     Call<UPC> getBarcodeAPI(@Path("key") String key, @Path("code") String code);
 
+    @GET("7cc78acb320c8441dcd662d0e014f112/{code}")
+    Call<UPC> getBarcodeAPITWO(@Path("code") String code);
+
 
 }

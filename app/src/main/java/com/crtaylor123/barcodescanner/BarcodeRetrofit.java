@@ -23,9 +23,10 @@ public class BarcodeRetrofit {
                 .build();
 
         BarcodeAPI barcodeAPI = retrofit.create(BarcodeAPI.class);
-
+        System.out.println(barcodeInfo);
 //        barcodeAPI.getBarcodeAPI(barcodeInfo, apiKey);
-        Call<UPC> upc = barcodeAPI.getBarcodeAPI(apiKey, barcodeInfo);
+        //Call<UPC> upc = barcodeAPI.getBarcodeAPI(apiKey, barcodeInfo);
+        Call<UPC> upc = barcodeAPI.getBarcodeAPITWO(barcodeInfo);
         return upc.toString();
     }
 }
