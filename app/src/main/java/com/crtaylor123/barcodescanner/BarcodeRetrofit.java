@@ -1,5 +1,6 @@
 package com.crtaylor123.barcodescanner;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,6 +18,9 @@ public class BarcodeRetrofit {
     public String getBarcodeInfo(String barcodeInfo) {
 
         barcodeInfo = "0111222333446";
+
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://api.upcdatabase.org/json/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -26,13 +30,17 @@ public class BarcodeRetrofit {
         System.out.println(barcodeInfo);
 //        barcodeAPI.getBarcodeAPI(barcodeInfo, apiKey);
         //Call<UPC> call = barcodeAPI.getBarcodeAPI(apiKey, barcodeInfo);
-        Call<UPC> call = barcodeAPI.getBarcodeAPITWO(barcodeInfo);
+        Call<UPC> call = barcodeAPI.getBarcodeAPIThree();
+
         call.enqueue(new Callback<UPC>() {
             @Override
             public void onResponse(Call<UPC> call, Response<UPC> response) {
                 int statusCode = response.code();
                 UPC upcResults = response.body();
-                upcResults.toString();
+                upcString = upcResults.toString();
+                System.out.println(statusCode);
+                System.out.println(response.body().toString());
+
             }
 
             @Override
@@ -41,6 +49,7 @@ public class BarcodeRetrofit {
             }
         });
         System.out.println(call.toString());
+        System.out.println(upcString);
 
         return upcString;
     }
