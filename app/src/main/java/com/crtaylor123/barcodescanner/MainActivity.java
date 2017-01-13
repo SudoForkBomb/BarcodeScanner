@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +25,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.IOException;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BarcodeDetailsFragment.OnFragmentInteractionListener{
 
 
     @Override
@@ -32,9 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btn = (Button) findViewById(R.id.button);
-        final TextView txtView = (TextView) findViewById(R.id.txtContent);
-        final SurfaceView cameraView = (SurfaceView) findViewById(R.id.camera_view);
+
 
         Bitmap myBitmap = BitmapFactory.decodeResource(
                 getApplicationContext().getResources(),
@@ -49,17 +48,12 @@ public class MainActivity extends AppCompatActivity {
         Fetches a stream of images from the device's camera and displays them in the SurfaceView, cameraView.
         You can adjust the dimensions of the camera preview using the setRequestedPreviewSize method.
          */
-        final CameraSource cameraSource = new CameraSource.Builder(
-                getApplicationContext(), barcodeDetector)
-                .setRequestedPreviewSize(1280, 1280)
-                .setFacing(CameraSource.CAMERA_FACING_BACK)
-                .setAutoFocusEnabled(true)
-                .setRequestedFps(30.0f)
-                .build();
+
 
         /*
         A callback to the SurfaceHolder of the SurfaceView so that you know when you can start drawing the preview frames.
          */
+
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
@@ -141,6 +135,10 @@ public class MainActivity extends AppCompatActivity {
 
 }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }
 
 

@@ -1,0 +1,13 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.crtaylor123.barcodescanner.CameraFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <SurfaceView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/camera_view" />
+
+</FrameLayout>

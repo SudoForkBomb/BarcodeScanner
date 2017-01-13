@@ -27,11 +27,9 @@ public class BarcodeRetrofit {
                 .build();
 
         BarcodeAPI barcodeAPI = retrofit.create(BarcodeAPI.class);
-        System.out.println(barcodeInfo);
-//        barcodeAPI.getBarcodeAPI(barcodeInfo, apiKey);
         //Call<UPC> call = barcodeAPI.getBarcodeAPI(apiKey, barcodeInfo);
-        Call<UPC> call = barcodeAPI.getBarcodeAPIThree();
 
+        Call<UPC> call = barcodeAPI.getBarcodeAPIThree();
         call.enqueue(new Callback<UPC>() {
             @Override
             public void onResponse(Call<UPC> call, Response<UPC> response) {
