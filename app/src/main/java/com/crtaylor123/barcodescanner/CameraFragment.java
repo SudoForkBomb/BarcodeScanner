@@ -19,6 +19,7 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
@@ -32,70 +33,64 @@ import java.io.IOException;
  * create an instance of this fragment.
  */
 public class CameraFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
+
+
+    SurfaceView cameraView;
+    BarcodeDetector barcodeDetector;
+    CameraSource cameraSource;
 
     public CameraFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CameraFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CameraFragment newInstance(String param1, String param2) {
-        CameraFragment fragment = new CameraFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
-        final SurfaceView cameraView = (SurfaceView) findViewById(R.id.camera_view);
-
-        final CameraSource cameraSource = new CameraSource.Builder(
-                getActivity().getApplicationContext(), barcodeDetector)
-                .setRequestedPreviewSize(1280, 1280)
-                .setFacing(CameraSource.CAMERA_FACING_BACK)
-                .setAutoFocusEnabled(true)
-                .setRequestedFps(30.0f)
-                .build();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        View rootView = inflater.inflate(R.layout.fragment_barcode_details, container, false);
 
-        //////////////////////////////////////////////////
+
+        cameraView = (SurfaceView) rootView.findViewById(R.id.camera_view);
+        /*
+        The easiest way to start is to operate on a single frame only.
+        Creates a frame using the myBitmap
+         */
+        Frame frame = new Frame.Builder()
+                .build();
+
+        /*
+        /*
+        Detects the barcodes. Detects all types of barcodes by default. Use setBarcodeFormats to specify.
+         */
+        barcodeDetector = new BarcodeDetector.Builder(
+                getActivity().getApplicationContext())
+                .build();
+
+        /*
+        Fetches a stream of images from the device's camera and displays them in the SurfaceView, cameraView.
+        You can adjust the dimensions of the camera preview using the setRequestedPreviewSize method.
+         */
+        cameraSource = new CameraSource.Builder(
+                getActivity().getApplicationContext(), barcodeDetector)
+                .setRequestedPreviewSize(1280, 1280)
+                .setFacing(CameraSource.CAMERA_FACING_BACK)
+                .setAutoFocusEnabled(true)
+                .setRequestedFps(30.0f)
+                .build();
+
 
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
-                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                         // TODO: Consider calling
                         //    ActivityCompat#requestPermissions
                         // here to request the missing permissions, and then overriding
@@ -110,25 +105,14 @@ public class CameraFragment extends Fragment {
                     Log.e("CAMERA SOURCE", e.getMessage());
                 }
             }
-
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
             }
-
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
                 cameraSource.stop();
             }
         });
-
-        /*
-        The easiest way to start is to operate on a single frame only.
-        Creates a frame using the myBitmap
-         */
-        Frame frame = new Frame.Builder()
-                .setBitmap(myBitmap)
-                .build();
 
         /*
         The detect method for barcodeDetector generates a SparseArray that contains all the barcodes detected in the photo.
@@ -163,17 +147,6 @@ public class CameraFragment extends Fragment {
             }
         });
         return inflater.inflate(R.layout.fragment_camera, container, false);
-    }
-    //////////////////////////////////////////////////
-
-
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
