@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -20,12 +22,8 @@ import android.widget.TextView;
 public class BarcodeDetailsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
-
-
     Button btn;
     TextView txtView;
-
-
 
     public BarcodeDetailsFragment() {
         // Required empty public constructor
@@ -42,8 +40,17 @@ public class BarcodeDetailsFragment extends Fragment {
         Button btn = (Button) rootView.findViewById(R.id.button);
         final TextView txtView = (TextView) rootView.findViewById(R.id.txtContent);
 
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onFragmentInteraction();
+
+            }
+        });
+
         return rootView;
     }
+
 
 
     @Override
@@ -75,6 +82,7 @@ public class BarcodeDetailsFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        String onFragmentInteraction();
+
     }
 }
