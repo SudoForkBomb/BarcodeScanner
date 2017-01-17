@@ -14,6 +14,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -55,16 +56,16 @@ public class CameraFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_barcode_details, container, false);
-
+        final TextView txtView = (TextView) rootView.findViewById(R.id.txtContent);
 
         cameraView = (SurfaceView) rootView.findViewById(R.id.camera_view);
+
         /*
         The easiest way to start is to operate on a single frame only.
         Creates a frame using the myBitmap
          */
         Frame frame = new Frame.Builder()
                 .build();
-
         /*
         /*
         Detects the barcodes. Detects all types of barcodes by default. Use setBarcodeFormats to specify.
@@ -107,6 +108,7 @@ public class CameraFragment extends Fragment {
             }
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+                cameraSource.stop();
             }
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
@@ -132,7 +134,6 @@ public class CameraFragment extends Fragment {
 
                 //Check if at least one barcode was detected
                 if (barcodes.size() != 0) {
-
                     //Display the barcode's message in txtView
                     txtView.post(new Runnable() {
                         @Override
