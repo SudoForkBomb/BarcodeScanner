@@ -1,14 +1,11 @@
 package com.crtaylor123.barcodescanner;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,12 +13,12 @@ import android.widget.TextView;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link BarcodeDetailsFragment.OnFragmentInteractionListener} interface
+ * {@link OnDetailsFragmentInteractionListener} interface
  * to handle interaction events.
  */
 public class BarcodeDetailsFragment extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
+    private OnDetailsFragmentInteractionListener mListener;
     Button btn;
     TextView txtView;
 
@@ -43,7 +40,7 @@ public class BarcodeDetailsFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onFragmentInteraction();
+                mListener.onDetailFragmentInteraction();
 
             }
         });
@@ -56,11 +53,11 @@ public class BarcodeDetailsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnDetailsFragmentInteractionListener) {
+            mListener = (OnDetailsFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnCameraFragmentInteractionListener");
         }
     }
 
@@ -80,9 +77,9 @@ public class BarcodeDetailsFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnDetailsFragmentInteractionListener {
         // TODO: Update argument type and name
-        String onFragmentInteraction();
+        String onDetailFragmentInteraction();
 
     }
 }

@@ -3,15 +3,14 @@ package com.crtaylor123.barcodescanner;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 
-public class MainActivity extends AppCompatActivity implements BarcodeDetailsFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements BarcodeDetailsFragment.OnDetailsFragmentInteractionListener, CameraFragment.OnCameraFragmentInteractionListener {
 
 
     @Override
@@ -28,14 +27,28 @@ public class MainActivity extends AppCompatActivity implements BarcodeDetailsFra
         return true;
     }
 
-    public String onFragmentInteraction(){
+    public String onDetailFragmentInteraction(){
         String barcodeValues = "";
         CameraFragment cameraFragment =  (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.camera_fragment);
         //Possibly Check later to see if we are in a two-pane setup. https://developer.android.com/training/basics/fragments/communicating.html
 
-        CameraFragment newFragment = new CameraFragment();
+        if(cameraFragment != null){
+            // If camera frag is available, we're in two-pane layout...
 
+            // Call a method in the CameraFragment to update its content
+            //cameraFragment.updateExample(position);
+        }
+        CameraFragment newFragment = new CameraFragment();
         Bundle args = new Bundle();
+        args.putString("upc", barcodeValues);
+        newFragment.setArguments(args);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.camera_fragment, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
 
 
         return barcodeValues;
@@ -52,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements BarcodeDetailsFra
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onCameraFragmentInteraction(String string) {
+
+    }
 }
 
 

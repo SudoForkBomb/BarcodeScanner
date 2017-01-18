@@ -28,13 +28,13 @@ import java.io.IOException;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CameraFragment.OnFragmentInteractionListener} interface
+ * {@link OnCameraFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link CameraFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class CameraFragment extends Fragment {
-    private OnFragmentInteractionListener mListener;
+    private OnCameraFragmentInteractionListener mListener;
 
 
     SurfaceView cameraView;
@@ -85,7 +85,6 @@ public class CameraFragment extends Fragment {
                 .setAutoFocusEnabled(true)
                 .setRequestedFps(30.0f)
                 .build();
-
 
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
@@ -153,11 +152,11 @@ public class CameraFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnCameraFragmentInteractionListener) {
+            mListener = (OnCameraFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnCameraFragmentInteractionListener");
         }
     }
 
@@ -177,8 +176,8 @@ public class CameraFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnCameraFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onCameraFragmentInteraction(String uri);
     }
 }
