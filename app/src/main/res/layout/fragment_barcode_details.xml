@@ -2,6 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+        tools:context="com.crtaylor123.barcodescanner.BarcodeDetailsFragment"
+
 </FrameLayout>-->
 
     <!-- TODO: Update blank fragment layout -->
@@ -14,10 +17,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.crtaylor123.barcodescanner.BarcodeDetailsFragment"
+    android:id="@+id/barcode_details_fragment"
     android:orientation="vertical">
 
-    <TextView android:text=""
+    <TextView android:text="Placeholder Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtContent"

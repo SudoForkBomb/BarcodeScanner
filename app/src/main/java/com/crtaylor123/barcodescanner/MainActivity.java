@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity implements BarcodeDetailsFra
             //cameraFragment.updateExample(position);
         }
         CameraFragment newFragment = new CameraFragment();
-        Bundle args = new Bundle();
-        args.putString("upc", barcodeValues);
-        newFragment.setArguments(args);
+        //Bundle args = new Bundle();
+        //args.putString("upc", barcodeValues);
+        //newFragment.setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         // Replace whatever is in the fragment_container view with this fragment,
