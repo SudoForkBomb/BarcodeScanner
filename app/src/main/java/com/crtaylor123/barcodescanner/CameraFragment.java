@@ -2,10 +2,8 @@ package com.crtaylor123.barcodescanner;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -32,7 +30,7 @@ import java.io.IOException;
  * Activities that contain this fragment must implement the
  * {@link OnCameraFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the  factory method to
+ * Use the {@link CameraFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class CameraFragment extends Fragment {
@@ -40,10 +38,8 @@ public class CameraFragment extends Fragment {
 
 
     SurfaceView cameraView;
-    Frame frame;
     BarcodeDetector barcodeDetector;
     CameraSource cameraSource;
-    Bitmap myBitmap;
 
     public CameraFragment() {
         // Required empty public constructor
@@ -59,29 +55,30 @@ public class CameraFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_camera, container, false);
-        Intent intent = getActivity().getIntent();
-
+        View rootView = inflater.inflate(R.layout.fragment_barcode_details, container, false);
         final TextView txtView = (TextView) rootView.findViewById(R.id.txtContent);
+
         cameraView = (SurfaceView) rootView.findViewById(R.id.camera_view);
-        myBitmap = BitmapFactory.decodeResource(
-                getActivity().getResources(),
-                R.drawable.puppy);
 
-        //The easiest way to start is to operate on a single frame only. Creates a frame using the myBitmap
-        frame = new Frame.Builder()
-                .setBitmap(myBitmap)
+        /*
+        The easiest way to start is to operate on a single frame only.
+        Creates a frame using the myBitmap
+         */
+        Frame frame = new Frame.Builder()
                 .build();
-
-        //Detects the barcodes. Detects all types of barcodes by default. Use setBarcodeFormats to specify.
+        /*
+        Detects the barcodes. Detects all types of barcodes by default. Use setBarcodeFormats to specify.
+         */
         barcodeDetector = new BarcodeDetector.Builder(
-                getActivity())
+                getActivity().getApplicationContext())
                 .build();
 
-        //Fetches a stream of images from the device's camera and displays them in the SurfaceView, cameraView.
-        //You can adjust the dimensions of the camera preview using the setRequestedPreviewSize method.
+        /*
+        Fetches a stream of images from the device's camera and displays them in the SurfaceView, cameraView.
+        You can adjust the dimensions of the camera preview using the setRequestedPreviewSize method.
+         */
         cameraSource = new CameraSource.Builder(
-                getActivity(), barcodeDetector)
+                getActivity().getApplicationContext(), barcodeDetector)
                 .setRequestedPreviewSize(1280, 1280)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
                 .setAutoFocusEnabled(true)
@@ -92,7 +89,7 @@ public class CameraFragment extends Fragment {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
-                    if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                         // TODO: Consider calling
                         //    ActivityCompat#requestPermissions
                         // here to request the missing permissions, and then overriding
@@ -117,11 +114,14 @@ public class CameraFragment extends Fragment {
             }
         });
 
-
-        //The detect method for barcodeDetector generates a SparseArray that contains all the barcodes detected in the photo.
+        /*
+        The detect method for barcodeDetector generates a SparseArray that contains all the barcodes detected in the photo.
+         */
         final SparseArray<Barcode> barcodes = barcodeDetector.detect(frame);
 
-        //Tells barcodeDetector what it should do when it detects a QR code.
+        /*
+        Tells barcodeDetector what it should do when it detects a QR code.
+         */
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
@@ -145,7 +145,7 @@ public class CameraFragment extends Fragment {
 
             }
         });
-        return rootView;
+        return inflater.inflate(R.layout.fragment_camera, container, false);
     }
 
     @Override
