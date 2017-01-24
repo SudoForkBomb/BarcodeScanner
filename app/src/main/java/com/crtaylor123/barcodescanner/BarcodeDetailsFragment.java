@@ -79,7 +79,7 @@ public class BarcodeDetailsFragment extends Fragment {
      */
     public interface OnDetailsFragmentInteractionListener {
         // TODO: Update argument type and name
-        String onDetailFragmentInteraction();
+        void onDetailFragmentInteraction();
 
     }
 }

@@ -16,6 +16,17 @@ public class MainActivity extends AppCompatActivity implements BarcodeDetailsFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new BarcodeDetailsFragment(), "detailsFragment")
+                    .commit();
+
+            BarcodeDetailsFragment detailsFragment =  (BarcodeDetailsFragment) getSupportFragmentManager().findFragmentByTag("detailsFragment");
+            //transaction.replace(R.id.fragment_container, detailsFragment);
+            //transaction.commit();
+
+        }
+
 }
 
 
@@ -26,11 +37,11 @@ public class MainActivity extends AppCompatActivity implements BarcodeDetailsFra
         return true;
     }
 
-    public String onDetailFragmentInteraction(){
+    public void onDetailFragmentInteraction(){
         String barcodeValues = "";
         CameraFragment cameraFragment =  (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.camera_fragment);
-        //Possibly Check later to see if we are in a two-pane setup. https://developer.android.com/training/basics/fragments/communicating.html
 
+        //Possibly Check later to see if we are in a two-pane setup. https://developer.android.com/training/basics/fragments/communicating.html
         if(cameraFragment != null){
             // If camera frag is available, we're in two-pane layout...
 
@@ -41,16 +52,12 @@ public class MainActivity extends AppCompatActivity implements BarcodeDetailsFra
         //Bundle args = new Bundle();
         //args.putString("upc", barcodeValues);
         //newFragment.setArguments(args);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack so the user can navigate back
-        transaction.replace(R.id.activity_main_xml, newFragment);
-        transaction.addToBackStack(null);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, newFragment);
+        transaction.addToBackStack("detailsFragment");
         transaction.commit();
-
-
-        return barcodeValues;
     }
 
     @Override

@@ -3,6 +3,8 @@ package com.crtaylor123.barcodescanner;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -30,7 +32,7 @@ import java.io.IOException;
  * Activities that contain this fragment must implement the
  * {@link OnCameraFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CameraFragment#newInstance} factory method to
+ * Use the {@link CameraFragment#} factory method to
  * create an instance of this fragment.
  */
 public class CameraFragment extends Fragment {
@@ -40,6 +42,7 @@ public class CameraFragment extends Fragment {
     SurfaceView cameraView;
     BarcodeDetector barcodeDetector;
     CameraSource cameraSource;
+    Bitmap myBitmap;
 
     public CameraFragment() {
         // Required empty public constructor
@@ -55,16 +58,20 @@ public class CameraFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_barcode_details, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_camera, container, false);
         final TextView txtView = (TextView) rootView.findViewById(R.id.txtContent);
 
         cameraView = (SurfaceView) rootView.findViewById(R.id.camera_view);
+        myBitmap = BitmapFactory.decodeResource(
+                getActivity().getResources(),
+                R.drawable.puppy);
 
         /*
         The easiest way to start is to operate on a single frame only.
         Creates a frame using the myBitmap
          */
         Frame frame = new Frame.Builder()
+                .setBitmap(myBitmap)
                 .build();
         /*
         Detects the barcodes. Detects all types of barcodes by default. Use setBarcodeFormats to specify.
