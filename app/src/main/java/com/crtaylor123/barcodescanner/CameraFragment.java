@@ -59,34 +59,35 @@ public class CameraFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_camera, container, false);
-        final TextView txtView = (TextView) rootView.findViewById(R.id.txtContent);
+        final Context context = getActivity().getApplicationContext();
+        System.out.println(context.toString());
+        final TextView txtView = (TextView) rootView.findViewById(R.id.camera_text);
 
         cameraView = (SurfaceView) rootView.findViewById(R.id.camera_view);
-        myBitmap = BitmapFactory.decodeResource(
-                getActivity().getResources(),
-                R.drawable.puppy);
 
-        /*
-        The easiest way to start is to operate on a single frame only.
-        Creates a frame using the myBitmap
-         */
-        Frame frame = new Frame.Builder()
-                .setBitmap(myBitmap)
+
+//        myBitmap = BitmapFactory.decodeResource(
+//                getActivity().getResources(),
+//                R.drawable.puppy);
+
+        //Detects the barcodes. Detects all types of barcodes by default. Use setBarcodeFormats to specify.
+        barcodeDetector = new BarcodeDetector.Builder(context)
                 .build();
-        /*
-        Detects the barcodes. Detects all types of barcodes by default. Use setBarcodeFormats to specify.
-         */
-        barcodeDetector = new BarcodeDetector.Builder(
-                getActivity().getApplicationContext())
-                .build();
+        if(!barcodeDetector.isOperational()){
+            txtView.setText("Could not set up the detector!");
+        }
+
+        //The easiest way to start is to operate on a single frame only. Creates a frame using the myBitmap
+//        Frame frame = new Frame.Builder()
+//                .setBitmap(myBitmap)
+//                .build();
 
         /*
         Fetches a stream of images from the device's camera and displays them in the SurfaceView, cameraView.
         You can adjust the dimensions of the camera preview using the setRequestedPreviewSize method.
          */
         cameraSource = new CameraSource.Builder(
-                getActivity().getApplicationContext(), barcodeDetector)
-                .setRequestedPreviewSize(1280, 1280)
+                context, barcodeDetector)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
                 .setAutoFocusEnabled(true)
                 .setRequestedFps(30.0f)
@@ -96,7 +97,7 @@ public class CameraFragment extends Fragment {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
-                    if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                         // TODO: Consider calling
                         //    ActivityCompat#requestPermissions
                         // here to request the missing permissions, and then overriding
@@ -124,7 +125,7 @@ public class CameraFragment extends Fragment {
         /*
         The detect method for barcodeDetector generates a SparseArray that contains all the barcodes detected in the photo.
          */
-        final SparseArray<Barcode> barcodes = barcodeDetector.detect(frame);
+        //final SparseArray<Barcode> barcodes = barcodeDetector.detect(frame);
 
         /*
         Tells barcodeDetector what it should do when it detects a QR code.
