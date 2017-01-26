@@ -4,8 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
-import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
@@ -61,31 +58,18 @@ public class CameraFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_camera, container, false);
         final Context context = getActivity().getApplicationContext();
         System.out.println(context.toString());
+
         final TextView txtView = (TextView) rootView.findViewById(R.id.camera_text);
 
         cameraView = (SurfaceView) rootView.findViewById(R.id.camera_view);
 
-
-//        myBitmap = BitmapFactory.decodeResource(
-//                getActivity().getResources(),
-//                R.drawable.puppy);
-
-        //Detects the barcodes. Detects all types of barcodes by default. Use setBarcodeFormats to specify.
         barcodeDetector = new BarcodeDetector.Builder(context)
                 .build();
+
         if(!barcodeDetector.isOperational()){
             txtView.setText("Could not set up the detector!");
         }
 
-        //The easiest way to start is to operate on a single frame only. Creates a frame using the myBitmap
-//        Frame frame = new Frame.Builder()
-//                .setBitmap(myBitmap)
-//                .build();
-
-        /*
-        Fetches a stream of images from the device's camera and displays them in the SurfaceView, cameraView.
-        You can adjust the dimensions of the camera preview using the setRequestedPreviewSize method.
-         */
         cameraSource = new CameraSource.Builder(
                 context, barcodeDetector)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
@@ -94,6 +78,7 @@ public class CameraFragment extends Fragment {
                 .build();
 
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
+
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
