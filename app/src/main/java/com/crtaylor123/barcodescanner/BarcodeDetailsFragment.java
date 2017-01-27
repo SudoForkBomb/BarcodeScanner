@@ -34,6 +34,8 @@ public class BarcodeDetailsFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_barcode_details, container, false);
 
+        System.out.println("Details Fragment Context = " + getActivity().getApplicationContext().toString());
+
         Button btn = (Button) rootView.findViewById(R.id.button);
         final TextView txtView = (TextView) rootView.findViewById(R.id.txtContent);
 

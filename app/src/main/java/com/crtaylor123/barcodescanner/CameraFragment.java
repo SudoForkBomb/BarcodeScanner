@@ -46,18 +46,12 @@ public class CameraFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_camera, container, false);
         final Context context = getActivity().getApplicationContext();
-        System.out.println(context.toString());
+        System.out.println("Camera Fragment Context = " + context.toString());
 
         final TextView txtView = (TextView) rootView.findViewById(R.id.camera_text);
 
@@ -66,7 +60,7 @@ public class CameraFragment extends Fragment {
         barcodeDetector = new BarcodeDetector.Builder(context)
                 .build();
 
-        if(!barcodeDetector.isOperational()){
+        if (!barcodeDetector.isOperational()) {
             txtView.setText("Could not set up the detector!");
         }
 
@@ -74,6 +68,7 @@ public class CameraFragment extends Fragment {
                 context, barcodeDetector)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
                 .setAutoFocusEnabled(true)
+                .setRequestedPreviewSize(1920, 1080)
                 .setRequestedFps(30.0f)
                 .build();
 
@@ -99,7 +94,6 @@ public class CameraFragment extends Fragment {
             }
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-                cameraSource.stop();
             }
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
@@ -115,6 +109,37 @@ public class CameraFragment extends Fragment {
         /*
         Tells barcodeDetector what it should do when it detects a QR code.
          */
+//        barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
+//            @Override
+//            public void release() {
+//            }
+//            @Override
+//            public void receiveDetections(Detector.Detections<Barcode> detections) {
+//                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
+//                //Check if at least one barcode was detected
+//                if (barcodes.size() != 0) {
+//                    //Display the barcode's message in txtView
+//                    txtView.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            txtView.setText(
+//                                    new BarcodeRetrofit().getBarcodeInfo(barcodes.valueAt(0).displayValue));
+//                            //barcodes.valueAt(0).displayValue);
+//                        }
+//                    });
+//                }
+//
+//            }
+//        });
+
+        String barcodeResult = scanBarcode(barcodeDetector);
+        txtView.setText(barcodeResult);
+
+        return rootView;
+    }
+
+    public String scanBarcode(BarcodeDetector barcodeDetector){
+        final String[] results = {""};
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
@@ -122,25 +147,17 @@ public class CameraFragment extends Fragment {
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-
                 //Check if at least one barcode was detected
+
                 if (barcodes.size() != 0) {
-                    //Display the barcode's message in txtView
-                    txtView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            txtView.setText(
-                                    new BarcodeRetrofit().getBarcodeInfo(barcodes.valueAt(0).displayValue));
-                            //barcodes.valueAt(0).displayValue);
-                        }
-                    });
+                    results[0] = barcodes.valueAt(0).displayValue;
+
                 }
 
             }
         });
-        return inflater.inflate(R.layout.fragment_camera, container, false);
+        return results[0];
     }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
