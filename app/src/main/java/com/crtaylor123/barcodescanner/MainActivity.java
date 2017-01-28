@@ -2,6 +2,7 @@ package com.crtaylor123.barcodescanner;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements BarcodeDetailsFragment.OnDetailsFragmentInteractionListener, CameraFragment.OnCameraFragmentInteractionListener {
+
 
 
     @Override
@@ -38,16 +40,8 @@ public class MainActivity extends AppCompatActivity implements BarcodeDetailsFra
     }
 
     public void onDetailFragmentInteraction(){
-        String barcodeValues = "";
-        CameraFragment cameraFragment =  (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.camera_fragment);
+        //CameraFragment cameraFragment =  (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.camera_fragment);
 
-        //Possibly Check later to see if we are in a two-pane setup. https://developer.android.com/training/basics/fragments/communicating.html
-        if(cameraFragment != null){
-            // If camera frag is available, we're in two-pane layout...
-
-            // Call a method in the CameraFragment to update its content
-            //cameraFragment.updateExample(position);
-        }
         CameraFragment newFragment = new CameraFragment();
         //Bundle args = new Bundle();
         //args.putString("upc", barcodeValues);
@@ -73,6 +67,12 @@ public class MainActivity extends AppCompatActivity implements BarcodeDetailsFra
 
     @Override
     public void onCameraFragmentInteraction(String string) {
+        Bundle args =  new Bundle();
+        args.putString("upc", string);
+        FragmentManager fragmentManager =  getSupportFragmentManager();
+        if(fragmentManager.getBackStackEntryCount() > 0){
+            fragmentManager.popBackStack();
+        }
 
     }
 }
