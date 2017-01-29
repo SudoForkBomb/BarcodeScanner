@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -36,11 +37,10 @@ public class CameraFragment extends Fragment {
     private OnCameraFragmentInteractionListener mListener;
 
 
-    SurfaceView cameraView;
-    BarcodeDetector barcodeDetector;
-    CameraSource cameraSource;
-    Bitmap myBitmap;
-
+    static SurfaceView cameraView;
+    static BarcodeDetector barcodeDetector;
+    static CameraSource cameraSource;
+    private static TextView txtView;
     public CameraFragment() {
         // Required empty public constructor
     }
@@ -53,7 +53,7 @@ public class CameraFragment extends Fragment {
         final Context context = getActivity().getApplicationContext();
         System.out.println("Camera Fragment Context = " + context.toString());
 
-        final TextView txtView = (TextView) rootView.findViewById(R.id.camera_text);
+        txtView = (TextView) rootView.findViewById(R.id.camera_text);
 
         cameraView = (SurfaceView) rootView.findViewById(R.id.camera_view);
 
@@ -106,58 +106,43 @@ public class CameraFragment extends Fragment {
          */
         //final SparseArray<Barcode> barcodes = barcodeDetector.detect(frame);
 
-        /*
-        Tells barcodeDetector what it should do when it detects a QR code.
-         */
-//        barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
-//            @Override
-//            public void release() {
-//            }
-//            @Override
-//            public void receiveDetections(Detector.Detections<Barcode> detections) {
-//                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-//                //Check if at least one barcode was detected
-//                if (barcodes.size() != 0) {
-//                    //Display the barcode's message in txtView
-//                    txtView.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            txtView.setText(
-//                                    new BarcodeRetrofit().getBarcodeInfo(barcodes.valueAt(0).displayValue));
-//                            //barcodes.valueAt(0).displayValue);
-//                        }
-//                    });
-//                }
-//
-//            }
-//        });
-
-        String barcodeResult = scanBarcode(barcodeDetector);
-        txtView.setText(barcodeResult);
-
         return rootView;
     }
 
-    public String scanBarcode(BarcodeDetector barcodeDetector){
-        final String[] results = {""};
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //Tells barcodeDetector what it should do when it detects a QR code.
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
             }
+
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
+                //The detect method for barcodeDetector generates a SparseArray that contains all the barcodes detected in the photo.
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
+
                 //Check if at least one barcode was detected
-
                 if (barcodes.size() != 0) {
-                    results[0] = barcodes.valueAt(0).displayValue;
-
+                    //Display the barcode's message in txtView
+                    txtView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            txtView.setText(barcodes.valueAt(barcodes.size()-1).displayValue);
+                            // TODO: 1/27/2017 Create a new Activity/Fragment combo and pass the UPC information.
+                            //mListener.onCameraFragmentInteraction(barcodes.valueAt(0).displayValue);
+                            //txtView.setText(new BarcodeRetrofit().getBarcodeInfo(barcodes.valueAt(0).displayValue));
+                        }
+                    });
+                    onDestroyView();
                 }
-
             }
         });
-        return results[0];
     }
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

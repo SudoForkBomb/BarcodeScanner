@@ -26,6 +26,10 @@ public class BarcodeDetailsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,17 +37,13 @@ public class BarcodeDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View rootView = inflater.inflate(R.layout.fragment_barcode_details, container, false);
-
-        System.out.println("Details Fragment Context = " + getActivity().getApplicationContext().toString());
-
-        Button btn = (Button) rootView.findViewById(R.id.button);
-        final TextView txtView = (TextView) rootView.findViewById(R.id.txtContent);
+        btn = (Button) rootView.findViewById(R.id.button);
+        txtView = (TextView) rootView.findViewById(R.id.txtContent);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.onDetailFragmentInteraction();
-
             }
         });
 
