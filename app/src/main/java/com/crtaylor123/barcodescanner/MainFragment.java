@@ -86,7 +86,7 @@ public class MainFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onMainFragmentInteraction(uri);
+            mListener.onMainFragmentInteraction();
         }
     }
 
@@ -119,6 +119,6 @@ public class MainFragment extends Fragment {
      */
     public interface OnMainFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onMainFragmentInteraction(Uri uri);
+        void onMainFragmentInteraction();
     }
 }

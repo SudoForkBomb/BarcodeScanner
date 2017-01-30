@@ -1,7 +1,6 @@
 package com.crtaylor123.barcodescanner;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -78,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     }
 
     @Override
-    public void onMainFragmentInteraction(Uri uri) {
+    public void onMainFragmentInteraction() {
         CameraFragment cameraFragment =  (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.camera_fragment);
 
         //Possibly Check later to see if we are in a two-pane setup. https://developer.android.com/training/basics/fragments/communicating.html
