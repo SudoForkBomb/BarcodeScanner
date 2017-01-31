@@ -1,6 +1,7 @@
 package com.crtaylor123.barcodescanner;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -72,7 +73,18 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     }
 
     @Override
-    public void onCameraFragmentInteraction(String string) {
+    public void onCameraFragmentInteraction(String barcodeNum) {
+        BarcodeDetailsFragment barcodeDetailsFragment = (BarcodeDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.barcode_details_fragment);
+
+        if(barcodeDetailsFragment == null){
+            Intent detailIntent = new Intent(this, DetailsActivity.class);
+            detailIntent.putExtra("barcodeNum", barcodeNum);
+            startActivity(detailIntent);
+        } else {
+            //barcodeDetailsFragment.updateDetails(movie);
+
+        }
+
 
     }
 

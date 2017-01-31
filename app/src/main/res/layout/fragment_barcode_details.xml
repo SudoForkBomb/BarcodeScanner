@@ -17,25 +17,57 @@
     android:id="@+id/barcode_details_fragment"
     android:orientation="vertical">
 
+    private String validTxtView
+    private String numberTxtView
+    private String itemNameTxtView
+    private String aliasTxtView
+    private String descriptionTxtView
+    private String avgPriceTxtView
+    private Integer rateUpTxtView
+    private Integer rateDownTxtView
+
     <TextView android:text="Placeholder Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtContent"
-        android:layout_weight=".65"/>
+        android:id="@+id/validTxtView"/>
 
-    <ImageView
+    <TextView android:text="Placeholder Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imgview"
-        android:layout_weight="0.18"/>
+        android:id="@+id/numberTxtView"/>
 
-    <Button
+    <TextView android:text="Placeholder Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Process"
-        android:id="@+id/button"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true" />
+        android:id="@+id/itemNameTxtView"/>
+
+    <TextView android:text="Placeholder Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/aliasTxtView"/>
+
+    <TextView android:text="Placeholder Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/descriptionTxtView"/>
+
+    <TextView android:text="Placeholder Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/avgPriceTxtView"/>
+
+    <TextView android:text="Placeholder Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rateUpTxtView"/>
+
+    <TextView android:text="Placeholder Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rateDownTxtView"/>
+
+
+
+
 
 </LinearLayout>
