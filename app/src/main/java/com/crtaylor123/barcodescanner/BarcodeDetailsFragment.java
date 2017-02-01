@@ -20,7 +20,6 @@ public class BarcodeDetailsFragment extends Fragment {
 
     private OnDetailsFragmentInteractionListener mListener;
     Button btn;
-    TextView txtView;
     TextView numberTxtView;
     TextView itemNameTxtView;
     TextView aliasTxtView;
@@ -45,7 +44,6 @@ public class BarcodeDetailsFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_barcode_details, container, false);
         btn = (Button) rootView.findViewById(R.id.button);
-        txtView = (TextView) rootView.findViewById(R.id.txtContent);
         numberTxtView = (TextView) rootView.findViewById(R.id.numberTxtView);
         itemNameTxtView = (TextView) rootView.findViewById(R.id.itemNameTxtView);
         aliasTxtView = (TextView) rootView.findViewById(R.id.aliasTxtView);

@@ -54,9 +54,7 @@ public class CameraFragment extends Fragment {
         System.out.println("Camera Fragment Context = " + context.toString());
 
         txtView = (TextView) rootView.findViewById(R.id.camera_text);
-
         cameraView = (SurfaceView) rootView.findViewById(R.id.camera_view);
-
         barcodeDetector = new BarcodeDetector.Builder(context)
                 .build();
 
@@ -131,6 +129,7 @@ public class CameraFragment extends Fragment {
                         @Override
                         public void run() {
                             txtView.setText(barcodes.valueAt(barcodes.size()-1).displayValue);
+
                             // TODO: 1/27/2017 Create a new Activity/Fragment combo and pass the UPC information.
                             //mListener.onCameraFragmentInteraction(barcodes.valueAt(0).displayValue);
                             //txtView.setText(new BarcodeRetrofit().getBarcodeInfo(barcodes.valueAt(0).displayValue));

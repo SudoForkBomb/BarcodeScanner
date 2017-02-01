@@ -12,10 +12,10 @@ public class DetailsActivity extends AppCompatActivity {
 
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new MainFragment(), "mainFragment")
+                    .replace(R.id.detail_container, new BarcodeDetailsFragment(), "detailFragment")
                     .commit();
 
-            MainFragment mainFragment =  (MainFragment) getSupportFragmentManager().findFragmentByTag("mainFragment");
+            //MainFragment mainFragment =  (MainFragment) getSupportFragmentManager().findFragmentByTag("mainFragment");
             //transaction.replace(R.id.fragment_container, detailsFragment);
             //transaction.commit();
 
