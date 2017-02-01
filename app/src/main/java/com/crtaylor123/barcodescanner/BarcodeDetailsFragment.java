@@ -52,6 +52,7 @@ public class BarcodeDetailsFragment extends Fragment {
         rateUpTxtView = (TextView) rootView.findViewById(R.id.rateUpTxtView);
         rateDownTxtView = (TextView) rootView.findViewById(R.id.rateDownTxtView);
 
+
         return rootView;
     }
 
