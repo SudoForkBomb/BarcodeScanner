@@ -4,6 +4,9 @@ package com.crtaylor123.barcodescanner;
  * Created by chris on 1/7/2017.
  */
 
+import android.content.Intent;
+import android.os.Parcel;
+
 import java.util.HashMap;
 import java.util.Map;
 

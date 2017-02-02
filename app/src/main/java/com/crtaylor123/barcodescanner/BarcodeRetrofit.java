@@ -30,6 +30,7 @@ public class BarcodeRetrofit {
         //Call<UPC> call = barcodeAPI.getBarcodeAPI(apiKey, barcodeInfo);
 
         Call<UPC> call = barcodeAPI.getBarcodeAPIThree();
+
         call.enqueue(new Callback<UPC>() {
             @Override
             public void onResponse(Call<UPC> call, Response<UPC> response) {

@@ -1,6 +1,7 @@
 package com.crtaylor123.barcodescanner;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,7 +20,6 @@ import android.widget.TextView;
 public class BarcodeDetailsFragment extends Fragment {
 
     private OnDetailsFragmentInteractionListener mListener;
-    Button btn;
     TextView numberTxtView;
     TextView itemNameTxtView;
     TextView aliasTxtView;
@@ -27,6 +27,8 @@ public class BarcodeDetailsFragment extends Fragment {
     TextView avgPriceTxtView;
     TextView rateUpTxtView;
     TextView rateDownTxtView;
+    //UPC barcodeDetails;
+    String barcodeDetails;
 
     public BarcodeDetailsFragment() {
         // Required empty public constructor
@@ -43,7 +45,13 @@ public class BarcodeDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View rootView = inflater.inflate(R.layout.fragment_barcode_details, container, false);
-        btn = (Button) rootView.findViewById(R.id.button);
+        Intent intent = getActivity().getIntent();
+//        if(intent.getParcelableExtra("barcodeNum") != null){
+//            barcodeDetails = (UPC) intent.getParcelableExtra("barcodeNum");
+//        }
+        if(intent.getStringExtra("barcodeNum") != null){
+            barcodeDetails = intent.getStringExtra("barcodeNum");
+        }
         numberTxtView = (TextView) rootView.findViewById(R.id.numberTxtView);
         itemNameTxtView = (TextView) rootView.findViewById(R.id.itemNameTxtView);
         aliasTxtView = (TextView) rootView.findViewById(R.id.aliasTxtView);
@@ -52,6 +60,14 @@ public class BarcodeDetailsFragment extends Fragment {
         rateUpTxtView = (TextView) rootView.findViewById(R.id.rateUpTxtView);
         rateDownTxtView = (TextView) rootView.findViewById(R.id.rateDownTxtView);
 
+
+        numberTxtView.setText(barcodeDetails);
+        itemNameTxtView.setText(barcodeDetails);
+        aliasTxtView.setText(barcodeDetails);
+        descriptionTxtView.setText(barcodeDetails);
+        avgPriceTxtView.setText(barcodeDetails);
+        rateUpTxtView.setText(barcodeDetails);
+        rateDownTxtView.setText(barcodeDetails);
 
         return rootView;
     }

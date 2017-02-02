@@ -14,11 +14,6 @@ public class DetailsActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.detail_container, new BarcodeDetailsFragment(), "detailFragment")
                     .commit();
-
-            //MainFragment mainFragment =  (MainFragment) getSupportFragmentManager().findFragmentByTag("mainFragment");
-            //transaction.replace(R.id.fragment_container, detailsFragment);
-            //transaction.commit();
-
         }
     }
 }
