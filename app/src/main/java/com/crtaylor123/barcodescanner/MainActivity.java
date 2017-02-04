@@ -70,31 +70,24 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
     @Override
     public void onCameraFragmentInteraction(String barcodeNum) {
-        BarcodeDetailsFragment barcodeDetailsFragment = (BarcodeDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.barcode_details_fragment);
-
-        if(barcodeDetailsFragment == null){
-            Intent detailIntent = new Intent(this, DetailsActivity.class);
-            detailIntent.putExtra("barcodeNum", barcodeNum);
-            startActivity(detailIntent);
-        } else {
-            //barcodeDetailsFragment.updateDetails(movie);
-
-        }
-
-
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.detach(getSupportFragmentManager().findFragmentByTag("cameraFragment"));
+        Intent detailIntent = new Intent(this, DetailsActivity.class);
+        detailIntent.putExtra("barcodeNum", barcodeNum);
+        startActivity(detailIntent);
     }
 
     @Override
     public void onMainFragmentInteraction() {
 
-        CameraFragment newFragment = new CameraFragment();
+        CameraFragment cameraFragment = (CameraFragment) getSupportFragmentManager().findFragmentByTag("cameraFragment");
         //Bundle args = new Bundle();
         //args.putString("upc", barcodeValues);
         //newFragment.setArguments(args);
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack so the user can navigate back
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, newFragment);
+        transaction.replace(R.id.fragment_container, new CameraFragment(), "cameraFragment");
         transaction.addToBackStack("mainFragment");
         transaction.commit();
 

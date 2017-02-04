@@ -12,7 +12,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.detail_container, new BarcodeDetailsFragment(), "detailFragment")
+                    .add(R.id.detail_container, new BarcodeDetailsFragment(), "detailFragment")
                     .commit();
         }
     }
