@@ -17,15 +17,6 @@
     android:id="@+id/barcode_details_fragment"
     android:orientation="vertical">
 
-    private String validTxtView
-    private String numberTxtView
-    private String itemNameTxtView
-    private String aliasTxtView
-    private String descriptionTxtView
-    private String avgPriceTxtView
-    private Integer rateUpTxtView
-    private Integer rateDownTxtView
-
     <TextView android:text="Placeholder Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

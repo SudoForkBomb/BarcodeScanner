@@ -2,6 +2,7 @@ package com.crtaylor123.barcodescanner;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -128,8 +129,11 @@ public class CameraFragment extends Fragment {
                         @Override
                         public void run() {
                             txtView.setText(barcodes.valueAt(barcodes.size()-1).displayValue);
+                            Intent detailIntent = new Intent(getActivity(), DetailsActivity.class);
+                            detailIntent.putExtra("barcodeNum", barcodes.valueAt(barcodes.size()-1).displayValue);
+                            startActivity(detailIntent);
 
-                            mListener.onCameraFragmentInteraction(barcodes.valueAt(barcodes.size()-1).displayValue);
+                            //mListener.onCameraFragmentInteraction(barcodes.valueAt(barcodes.size()-1).displayValue);
                             // TODO: 1/27/2017 Create a new Activity/Fragment combo and pass the UPC information.
                             //mListener.onCameraFragmentInteraction(barcodes.valueAt(0).displayValue);
                             //txtView.setText(new BarcodeRetrofit().getBarcodeInfo(barcodes.valueAt(0).displayValue));

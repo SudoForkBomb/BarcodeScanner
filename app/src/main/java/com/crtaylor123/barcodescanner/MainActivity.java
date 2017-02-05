@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 
-public class MainActivity extends AppCompatActivity implements MainFragment.OnMainFragmentInteractionListener, BarcodeDetailsFragment.OnDetailsFragmentInteractionListener, CameraFragment.OnCameraFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements MainFragment.OnMainFragmentInteractionListener, CameraFragment.OnCameraFragmentInteractionListener {
 
 
     @Override
@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         return true;
     }
 
-    public void onDetailFragmentInteraction(){
 //        String barcodeValues = "";
 //        CameraFragment cameraFragment =  (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.camera_fragment);
 //
@@ -55,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 //        transaction.replace(R.id.fragment_container, newFragment);
 //        transaction.addToBackStack("detailsFragment");
 //        transaction.commit();
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -71,7 +69,8 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     @Override
     public void onCameraFragmentInteraction(String barcodeNum) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.detach(getSupportFragmentManager().findFragmentByTag("cameraFragment"));
+        transaction.remove(getSupportFragmentManager().findFragmentByTag("cameraFragment"));
+
         Intent detailIntent = new Intent(this, DetailsActivity.class);
         detailIntent.putExtra("barcodeNum", barcodeNum);
         startActivity(detailIntent);
