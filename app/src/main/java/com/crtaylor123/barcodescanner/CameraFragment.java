@@ -129,9 +129,6 @@ public class CameraFragment extends Fragment {
                         @Override
                         public void run() {
                             txtView.setText(barcodes.valueAt(barcodes.size()-1).displayValue);
-                            Intent detailIntent = new Intent(getActivity(), DetailsActivity.class);
-                            detailIntent.putExtra("barcodeNum", barcodes.valueAt(barcodes.size()-1).displayValue);
-                            startActivity(detailIntent);
 
                             //mListener.onCameraFragmentInteraction(barcodes.valueAt(barcodes.size()-1).displayValue);
                             // TODO: 1/27/2017 Create a new Activity/Fragment combo and pass the UPC information.
@@ -141,6 +138,9 @@ public class CameraFragment extends Fragment {
                     });
                     onDestroyView();
                 }
+                Intent detailIntent = new Intent(getActivity(), DetailsActivity.class);
+                detailIntent.putExtra("barcodeNum", barcodes.valueAt(barcodes.size()-1).displayValue);
+                startActivity(detailIntent);
             }
         });
     }
